@@ -83,6 +83,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SetPort";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "SetPort";
             this.Load += new System.EventHandler(this.SetPort_Load);
             this.ResumeLayout(false);

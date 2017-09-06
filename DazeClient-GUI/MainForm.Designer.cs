@@ -53,6 +53,7 @@
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.Exit = new System.Windows.Forms.Button();
             this.currentServer = new System.Windows.Forms.Label();
+            this.ToNotify = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -264,7 +265,7 @@
             // 
             // Exit
             // 
-            this.Exit.Location = new System.Drawing.Point(666, 443);
+            this.Exit.Location = new System.Drawing.Point(555, 443);
             this.Exit.Name = "Exit";
             this.Exit.Size = new System.Drawing.Size(75, 23);
             this.Exit.TabIndex = 8;
@@ -281,11 +282,22 @@
             this.currentServer.TabIndex = 9;
             this.currentServer.Text = "当前服务器：未选择";
             // 
+            // ToNotify
+            // 
+            this.ToNotify.Location = new System.Drawing.Point(636, 443);
+            this.ToNotify.Name = "ToNotify";
+            this.ToNotify.Size = new System.Drawing.Size(105, 23);
+            this.ToNotify.TabIndex = 10;
+            this.ToNotify.Text = "最小化到通知栏";
+            this.ToNotify.UseVisualStyleBackColor = true;
+            this.ToNotify.Click += new System.EventHandler(this.ToNotify_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(753, 476);
+            this.Controls.Add(this.ToNotify);
             this.Controls.Add(this.currentServer);
             this.Controls.Add(this.Exit);
             this.Controls.Add(this.groupBox2);
@@ -297,6 +309,7 @@
             this.Controls.Add(this.ServerList);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "MainForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -335,5 +348,6 @@
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.Button Exit;
         private System.Windows.Forms.Label currentServer;
+        private System.Windows.Forms.Button ToNotify;
     }
 }

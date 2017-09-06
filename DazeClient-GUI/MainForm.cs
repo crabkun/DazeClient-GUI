@@ -267,5 +267,10 @@ namespace DazeClient_GUI
                 SaveConfig();
             }
         }
+
+        private void ToNotify_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

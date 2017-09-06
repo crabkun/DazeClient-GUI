@@ -62,8 +62,8 @@ namespace DazeClient_GUI
             p.StartInfo.FileName = "DazeClient.exe";
             
             p.StartInfo.Arguments = "-control-address 127.0.0.1:"+ControlPort.ToString();
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.CreateNoWindow = true;
+            //p.StartInfo.UseShellExecute = false;
+            //p.StartInfo.CreateNoWindow = true;
             try
             {
                 if (p.Start() == false)
@@ -82,8 +82,7 @@ namespace DazeClient_GUI
             Thread monitor = new Thread(monitorProcess);
             monitor.Start();
         }
-        //-2 控制端口
-        //-5 正常断开
+
         private void monitorProcess()
         {
             p.WaitForExit();

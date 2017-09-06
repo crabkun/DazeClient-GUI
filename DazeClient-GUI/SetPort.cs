@@ -29,8 +29,11 @@ namespace DazeClient_GUI
                 MessageBox.Show("端口不能为空", "错误");
                 return;
             }
-            mainForm.cfg.LocalPort = Port.Text;
-            this.DialogResult = DialogResult.OK;
+            if (mainForm.cfg.LocalPort != Port.Text)
+            {
+                mainForm.cfg.LocalPort = Port.Text;
+                this.DialogResult = DialogResult.OK;
+            }
             this.Close();
         }
 

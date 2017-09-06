@@ -36,12 +36,12 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.AddButton = new System.Windows.Forms.Button();
+            this.EditButton = new System.Windows.Forms.Button();
+            this.DelButton = new System.Windows.Forms.Button();
             this.Apply = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button7 = new System.Windows.Forms.Button();
+            this.SetPortButton = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.DazeRestart = new System.Windows.Forms.Button();
             this.DazeClientStatus = new System.Windows.Forms.Label();
@@ -104,32 +104,35 @@
             this.columnHeader5.Text = "伪装方式";
             this.columnHeader5.Width = 120;
             // 
-            // button1
+            // AddButton
             // 
-            this.button1.Location = new System.Drawing.Point(13, 232);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "添加";
-            this.button1.UseVisualStyleBackColor = true;
+            this.AddButton.Location = new System.Drawing.Point(13, 232);
+            this.AddButton.Name = "AddButton";
+            this.AddButton.Size = new System.Drawing.Size(75, 23);
+            this.AddButton.TabIndex = 2;
+            this.AddButton.Text = "添加";
+            this.AddButton.UseVisualStyleBackColor = true;
+            this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
-            // button2
+            // EditButton
             // 
-            this.button2.Location = new System.Drawing.Point(94, 232);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "编辑";
-            this.button2.UseVisualStyleBackColor = true;
+            this.EditButton.Location = new System.Drawing.Point(94, 232);
+            this.EditButton.Name = "EditButton";
+            this.EditButton.Size = new System.Drawing.Size(75, 23);
+            this.EditButton.TabIndex = 3;
+            this.EditButton.Text = "编辑";
+            this.EditButton.UseVisualStyleBackColor = true;
+            this.EditButton.Click += new System.EventHandler(this.EditButton_Click);
             // 
-            // button3
+            // DelButton
             // 
-            this.button3.Location = new System.Drawing.Point(175, 232);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "删除";
-            this.button3.UseVisualStyleBackColor = true;
+            this.DelButton.Location = new System.Drawing.Point(175, 232);
+            this.DelButton.Name = "DelButton";
+            this.DelButton.Size = new System.Drawing.Size(75, 23);
+            this.DelButton.TabIndex = 4;
+            this.DelButton.Text = "删除";
+            this.DelButton.UseVisualStyleBackColor = true;
+            this.DelButton.Click += new System.EventHandler(this.DelButton_Click);
             // 
             // Apply
             // 
@@ -143,7 +146,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.button7);
+            this.groupBox1.Controls.Add(this.SetPortButton);
             this.groupBox1.Controls.Add(this.button6);
             this.groupBox1.Controls.Add(this.DazeRestart);
             this.groupBox1.Controls.Add(this.DazeClientStatus);
@@ -155,14 +158,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "DazeClient核心";
             // 
-            // button7
+            // SetPortButton
             // 
-            this.button7.Location = new System.Drawing.Point(401, 33);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(115, 23);
-            this.button7.TabIndex = 4;
-            this.button7.Text = "设置本地监听端口";
-            this.button7.UseVisualStyleBackColor = true;
+            this.SetPortButton.Location = new System.Drawing.Point(401, 33);
+            this.SetPortButton.Name = "SetPortButton";
+            this.SetPortButton.Size = new System.Drawing.Size(115, 23);
+            this.SetPortButton.TabIndex = 4;
+            this.SetPortButton.Text = "设置本地监听端口";
+            this.SetPortButton.UseVisualStyleBackColor = true;
+            this.SetPortButton.Click += new System.EventHandler(this.SetPortButton_Click);
             // 
             // button6
             // 
@@ -287,10 +291,11 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Apply);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.DelButton);
+            this.Controls.Add(this.EditButton);
+            this.Controls.Add(this.AddButton);
             this.Controls.Add(this.ServerList);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
@@ -313,13 +318,13 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button AddButton;
+        private System.Windows.Forms.Button EditButton;
+        private System.Windows.Forms.Button DelButton;
         private System.Windows.Forms.Button Apply;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button SetPortButton;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button DazeRestart;
         private System.Windows.Forms.Label DazeClientStatus;

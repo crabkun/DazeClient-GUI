@@ -62,8 +62,8 @@ namespace DazeClient_GUI
             p.StartInfo.FileName = "DazeClient.exe";
             
             p.StartInfo.Arguments = "-control-address 127.0.0.1:"+ControlPort.ToString();
-            //p.StartInfo.UseShellExecute = false;
-            //p.StartInfo.CreateNoWindow = true;
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.CreateNoWindow = true;
             try
             {
                 if (p.Start() == false)
@@ -126,7 +126,7 @@ namespace DazeClient_GUI
             LastServer = cfg;
             string json = JsonConvert.SerializeObject(LastServer);
             string ret = sendCommand("SET SERVER "+ json.Replace(" ", ""));
-            if (ret == "OK\n"){
+            if (ret == "OK"){
                 return true;
             }
             else
@@ -137,14 +137,14 @@ namespace DazeClient_GUI
         public bool SetProxy(string port)
         {
             string ret = sendCommand("SET PORT " + port);
-            if (ret == "OK\n")
+            if (ret == "OK")
             {
                 mainForm.BeginInvoke(mainForm.updateStatus, "工作中");
                 return true;
             }
             else
             {
-                mainForm.BeginInvoke(mainForm.updateStatus, "端口冲突");
+                mainForm.BeginInvoke(mainForm.updateStatus, "端口错误");
                 MessageBox.Show("本地HTTP/SOCKS5代理端口监听失败！请重新设置端口或者关闭冲突程序。", "错误");
                 return false;
             }
@@ -159,7 +159,7 @@ namespace DazeClient_GUI
             {
                 client.Send(System.Text.Encoding.UTF8.GetBytes(cmd + "\n"));
                 byte[] buf = new byte[1024];
-                int n = client.Receive(buf);
+                int n = client.Receive(buf)-1;
                 return System.Text.Encoding.UTF8.GetString(buf.Take(n).ToArray());
             }
             catch
@@ -172,6 +172,23 @@ namespace DazeClient_GUI
         {
             WillClose = true;
             kill();
+        }
+        public string[] GetEncryption()
+        {
+            string ret = sendCommand("GET ENCRYPTION");
+            if(ret == "" || ret == "UNKNOWN"){
+                return null;
+            }
+            return ret.Split('|');
+        }
+        public string[] GetObscuret()
+        {
+            string ret = sendCommand("GET OBSCURE");
+            if (ret == "" || ret == "UNKNOWN")
+            {
+                return null;
+            }
+            return ret.Split('|');
         }
     }
 }

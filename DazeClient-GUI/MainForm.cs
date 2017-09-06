@@ -100,7 +100,7 @@ namespace DazeClient_GUI
            
             dz.LastServer = cfg.Servers[cfg.LastServer - 1];
             currentServer.Text = "当前服务器：" + cfg.Servers[cfg.LastServer - 1].Name;
-            NowSelect = 0;
+            NowSelect = cfg.LastServer-1;
             cfg.LastServer = NowSelect+1;
         }
         private void InitNotifyIcon()
@@ -183,10 +183,7 @@ namespace DazeClient_GUI
                 MessageBox.Show("未选中需要使用的配置", "提示");
                 return;
             }
-            else
-            {
-                ApplyConfig(ServerList.SelectedIndices[0]);
-            }
+            ApplyConfig(ServerList.SelectedIndices[0]);
         }
         private void ApplyConfig(int num)
         {
@@ -195,15 +192,80 @@ namespace DazeClient_GUI
                 MessageBox.Show("核心应用此配置失败，请检查配置或者稍后再试", "提示");
                 return;
             }
-            else
-            {
                 NowSelect = num;
                 cfg.LastServer = num+1;
                 SaveConfig();
                 refreshList();
                 currentServer.Text = "当前服务器：" + cfg.Servers[num].Name;
+        }
+
+        private void AddButton_Click(object sender, EventArgs e)
+        {
+            Server tmp = new Server();
+            AddServer ad = new AddServer(dz.GetEncryption(),dz.GetObscuret(),ref tmp);
+            if (ad.ShowDialog() == DialogResult.OK)
+            {
+                List<Server> tmplist = cfg.Servers.ToList();
+                tmplist.Add(tmp);
+                cfg.Servers = tmplist.ToArray();
+                refreshList();
+                SaveConfig();
+                ApplyConfig(cfg.Servers.Length - 1);
+            }
+            
+        }
+
+        private void EditButton_Click(object sender, EventArgs e)
+        {
+            if (ServerList.SelectedIndices.Count == 0)
+            {
+                MessageBox.Show("未选中需要使用的配置", "提示");
+                return;
+            }
+            int sel = ServerList.SelectedIndices[0];
+            Server tmp = cfg.Servers[sel];
+            AddServer ed = new AddServer(dz.GetEncryption(), dz.GetObscuret(),ref tmp);
+            if (ed.ShowDialog() == DialogResult.OK)
+            {
+                cfg.Servers[sel] = tmp;
+                refreshList();
+                SaveConfig();
+                ApplyConfig(sel);
             }
         }
 
+        private void DelButton_Click(object sender, EventArgs e)
+        {
+            if (ServerList.SelectedIndices.Count == 0)
+            {
+                MessageBox.Show("未选中需要使用的配置", "提示");
+                return;
+            }
+            if (MessageBox.Show("是否要删除？", "确定？", MessageBoxButtons.YesNo) == DialogResult.No)
+            {
+                return;
+            }
+            int sel = ServerList.SelectedIndices[0];
+            
+            List<Server> tmplist = cfg.Servers.ToList();
+            tmplist.RemoveAt(sel);
+
+            Server old = cfg.Servers[NowSelect];
+            NowSelect = tmplist.IndexOf(old);
+            cfg.Servers = tmplist.ToArray();
+            SaveConfig();
+            refreshList();
+
+
+        }
+
+        private void SetPortButton_Click(object sender, EventArgs e)
+        {
+            SetPort sp = new SetPort(this);
+            if(sp.ShowDialog() == DialogResult.OK){
+                dz.SetProxy(cfg.LocalPort);
+                SaveConfig();
+            }
+        }
     }
 }

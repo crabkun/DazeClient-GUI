@@ -25,6 +25,7 @@ namespace DazeClient_GUI
         private int NowSelect = -1;
         private void MainForm_Load(object sender, EventArgs e)
         {
+            this.Text = "DazeClient-GUI " + version;
             cfg = new Config();
             cfg.Servers = new Server[0];
             InitNotifyIcon();
@@ -39,9 +40,9 @@ namespace DazeClient_GUI
             }
             updateStatus = new UpdateStatus(UpdateStatusMethod);
             dz = new DazeHelper(this,cfg.LocalPort);
-            SaveConfig();
             LoadLastServer();
             dz.Run();
+            SaveConfig();
             refreshList();
             ShowBalloonMsg("配置", "配置加载成功，一共" + cfg.Servers.Length.ToString() + "个服务器\n", 1000);
         }
@@ -100,6 +101,7 @@ namespace DazeClient_GUI
             dz.LastServer = cfg.Servers[cfg.LastServer - 1];
             currentServer.Text = "当前服务器：" + cfg.Servers[cfg.LastServer - 1].Name;
             NowSelect = 0;
+            cfg.LastServer = NowSelect+1;
         }
         private void InitNotifyIcon()
         {
